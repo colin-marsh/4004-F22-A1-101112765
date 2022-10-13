@@ -1,13 +1,11 @@
 package project;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Unit test for simple App.
  */
-public class DiceTest
+public class DieTest
     extends TestCase
 {
 

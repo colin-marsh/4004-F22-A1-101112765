@@ -11,7 +11,7 @@ import org.junit.runners.Suite;
  */
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses( {DiceTest.class} )
+@Suite.SuiteClasses( {DieTest.class} )
 public class TestSuite {
 
 }
