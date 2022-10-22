@@ -1,2 +1,5 @@
-package project;public enum FortuneCard {
+package project;
+
+public enum FortuneCard {
+    GOLD_COIN
 }

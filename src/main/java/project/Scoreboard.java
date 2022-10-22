@@ -1,6 +1,6 @@
 package project;
 
-import java.util.Map;
+import java.util.HashMap;
 
 public class Scoreboard {
 
@@ -11,8 +11,13 @@ public class Scoreboard {
 
     }
 
-    public int calculateDiceScore(Map<Roll,Integer> diceRolls){
+    public int calculateDiceScore(HashMap<Roll,Integer> diceRolls, FortuneCard fc){
         int turn_score = 0;
+        if (fc == FortuneCard.GOLD_COIN){
+            int rolled_coins = diceRolls.get(Roll.COIN);
+            diceRolls.put(Roll.COIN, rolled_coins + 1);
+        }
+
         turn_score += diceRolls.get(Roll.COIN) * 100;
         turn_score += diceRolls.get(Roll.DIAMOND)* 100;
         for (Roll roll : diceRolls.keySet() ){
@@ -33,12 +38,14 @@ public class Scoreboard {
                 }else if (diceRolls.get(roll) == 7){
                     turn_score += 2000;
                 }else if (diceRolls.get(roll) == 8){
-                    turn_score += 8000;
+                    turn_score += 4000;
                 }
             }
         }
         return turn_score;
     }
+
+
 
 
 }
