@@ -13,6 +13,9 @@ public class Scoreboard {
 
     public int calculateDiceScore(HashMap<Roll,Integer> diceRolls, FortuneCard fc){
         int turn_score = 0;
+        if (checkFullChest(diceRolls)){
+            turn_score += 500;
+        }
         if (fc == FortuneCard.GOLD_COIN){
             int rolled_coins = diceRolls.get(Roll.COIN);
             diceRolls.put(Roll.COIN, rolled_coins + 1);
@@ -40,7 +43,7 @@ public class Scoreboard {
                     turn_score += 1000;
                 }else if (diceRolls.get(roll) == 7){
                     turn_score += 2000;
-                }else if (diceRolls.get(roll) == 8){
+                }else if (diceRolls.get(roll) >= 8){
                     turn_score += 4000;
                 }
             }
@@ -49,6 +52,36 @@ public class Scoreboard {
             turn_score = turn_score * 2;
         }
         return turn_score;
+    }
+
+    public boolean checkFullChest(HashMap<Roll,Integer> diceRolls){
+
+        for (Roll roll : diceRolls.keySet() ){
+            int num_roll = diceRolls.get(roll);
+            if(num_roll >=1){
+                boolean is_scoring = checkRollScoring(roll, num_roll);
+                if(is_scoring == false){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean checkRollScoring(Roll roll, int num){
+        if(roll == Roll.COIN){
+            return true;
+        } else if (roll == Roll.DIAMOND) {
+            return true;
+        }else if (roll == Roll.SKULL){
+            return false;
+        }else{
+            if (num >= 3){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 
 
