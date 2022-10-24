@@ -277,4 +277,172 @@ public class GameTest extends TestCase {
         assertEquals(2100, score);
         assertEquals(GameState.STANDARD, g.getGameState());
     }
+
+    public void testGameStateRow64(){
+        HashMap<Roll,Integer> diceRolls = new HashMap<Roll, Integer>();
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.GOLD_COIN);
+        assertEquals(GameState.STANDARD, g.getGameState());
+        diceRolls.put(Roll.COIN,8);
+        diceRolls.put(Roll.DIAMOND,0);
+        diceRolls.put(Roll.SWORD,0);
+        diceRolls.put(Roll.SKULL,0);
+        diceRolls.put(Roll.PARROT,0);
+        diceRolls.put(Roll.MONKEY,0);
+        int score = g.firstRollFixed(diceRolls);
+        assertEquals(5400, score);
+    }
+
+    public void testGameStateRow65(){
+        HashMap<Roll,Integer> diceRolls = new HashMap<Roll, Integer>();
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.DIAMOND);
+        assertEquals(GameState.STANDARD, g.getGameState());
+        diceRolls.put(Roll.COIN,8);
+        diceRolls.put(Roll.DIAMOND,0);
+        diceRolls.put(Roll.SWORD,0);
+        diceRolls.put(Roll.SKULL,0);
+        diceRolls.put(Roll.PARROT,0);
+        diceRolls.put(Roll.MONKEY,0);
+        int score = g.firstRollFixed(diceRolls);
+        assertEquals(5400, score);
+    }
+    public void testGameStateRow66(){
+        HashMap<Roll,Integer> diceRolls = new HashMap<Roll, Integer>();
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.CAPTAIN);
+        assertEquals(GameState.STANDARD, g.getGameState());
+        diceRolls.put(Roll.COIN,0);
+        diceRolls.put(Roll.DIAMOND,0);
+        diceRolls.put(Roll.SWORD, 8);
+        diceRolls.put(Roll.SKULL,0);
+        diceRolls.put(Roll.PARROT,0);
+        diceRolls.put(Roll.MONKEY,0);
+        int score = g.firstRollFixed(diceRolls);
+        assertEquals(9000, score);
+    }
+
+    public void testGameStateRow67(){
+        HashMap<Roll,Integer> diceRolls = new HashMap<Roll, Integer>();
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.GOLD_COIN);
+        assertEquals(GameState.STANDARD, g.getGameState());
+        diceRolls.put(Roll.COIN,0);
+        diceRolls.put(Roll.DIAMOND,0);
+        diceRolls.put(Roll.SWORD,2);
+        diceRolls.put(Roll.SKULL,0);
+        diceRolls.put(Roll.PARROT,0);
+        diceRolls.put(Roll.MONKEY,6);
+        int score = g.firstRollFixed(diceRolls);
+        assertEquals(1100, score);
+        diceRolls.put(Roll.COIN,0);
+        diceRolls.put(Roll.SWORD,0);
+        diceRolls.put(Roll.MONKEY,8);
+        score = g.reRollFixed(diceRolls);
+        assertEquals(4600, score);
+        assertEquals(GameState.STANDARD, g.getGameState());
+    }
+
+    public void testGameStateRow68(){
+        HashMap<Roll,Integer> diceRolls = new HashMap<Roll, Integer>();
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.DIAMOND);
+        assertEquals(GameState.STANDARD, g.getGameState());
+        diceRolls.put(Roll.COIN,0);
+        diceRolls.put(Roll.DIAMOND,0);
+        diceRolls.put(Roll.SWORD,2);
+        diceRolls.put(Roll.SKULL,2);
+        diceRolls.put(Roll.PARROT,2);
+        diceRolls.put(Roll.MONKEY,2);
+        int score = g.firstRollFixed(diceRolls);
+        assertEquals(100, score);
+        diceRolls.put(Roll.DIAMOND,2);
+        diceRolls.put(Roll.SWORD,0);
+        diceRolls.put(Roll.PARROT,0);
+        score = g.reRollFixed(diceRolls);
+        assertEquals(400, score);
+        assertEquals(GameState.STANDARD, g.getGameState());
+    }
+
+    public void testGameStateRow69(){
+        HashMap<Roll,Integer> diceRolls = new HashMap<Roll, Integer>();
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.GOLD_COIN);
+        assertEquals(GameState.STANDARD, g.getGameState());
+        diceRolls.put(Roll.COIN,0);
+        diceRolls.put(Roll.DIAMOND,1);
+        diceRolls.put(Roll.SWORD,2);
+        diceRolls.put(Roll.SKULL,2);
+        diceRolls.put(Roll.PARROT,1);
+        diceRolls.put(Roll.MONKEY,2);
+        int score = g.firstRollFixed(diceRolls);
+        assertEquals(200, score);
+        diceRolls.put(Roll.COIN,0);
+        diceRolls.put(Roll.DIAMOND,3);
+        diceRolls.put(Roll.PARROT,0);
+        score = g.reRollFixed(diceRolls);
+        assertEquals(500, score);
+        assertEquals(GameState.STANDARD, g.getGameState());
+    }
+
+    public void testGameStateRow70(){
+        HashMap<Roll,Integer> diceRolls = new HashMap<Roll, Integer>();
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.GOLD_COIN);
+        assertEquals(GameState.STANDARD, g.getGameState());
+        diceRolls.put(Roll.COIN,2);
+        diceRolls.put(Roll.DIAMOND,0);
+        diceRolls.put(Roll.SWORD,3);
+        diceRolls.put(Roll.SKULL,1);
+        diceRolls.put(Roll.PARROT,1);
+        diceRolls.put(Roll.MONKEY,1);
+        int score = g.firstRollFixed(diceRolls);
+        assertEquals(500, score);
+        diceRolls.put(Roll.COIN,3);
+        diceRolls.put(Roll.SWORD,0);
+        diceRolls.put(Roll.MONKEY,2);
+        diceRolls.put(Roll.PARROT,2);
+        score = g.reRollFixed(diceRolls);
+        assertEquals(600, score);
+        assertEquals(GameState.STANDARD, g.getGameState());
+    }
+
+    public void testGameStateRow71(){
+        HashMap<Roll,Integer> diceRolls = new HashMap<Roll, Integer>();
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.DIAMOND);
+        assertEquals(GameState.STANDARD, g.getGameState());
+        diceRolls.put(Roll.COIN,2);
+        diceRolls.put(Roll.DIAMOND,0);
+        diceRolls.put(Roll.SWORD,3);
+        diceRolls.put(Roll.SKULL,1);
+        diceRolls.put(Roll.PARROT,1);
+        diceRolls.put(Roll.MONKEY,1);
+        int score = g.firstRollFixed(diceRolls);
+        assertEquals(400, score);
+        diceRolls.put(Roll.DIAMOND,0);
+        diceRolls.put(Roll.COIN,3);
+        diceRolls.put(Roll.SWORD,0);
+        diceRolls.put(Roll.MONKEY,2);
+        diceRolls.put(Roll.PARROT,2);
+        score = g.reRollFixed(diceRolls);
+        assertEquals(500, score);
+        assertEquals(GameState.STANDARD, g.getGameState());
+    }
+
+    public void testGameStateRow72(){
+        HashMap<Roll,Integer> diceRolls = new HashMap<Roll, Integer>();
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.GOLD_COIN);
+        assertEquals(GameState.STANDARD, g.getGameState());
+        diceRolls.put(Roll.COIN,2);
+        diceRolls.put(Roll.DIAMOND,0);
+        diceRolls.put(Roll.SWORD,0);
+        diceRolls.put(Roll.SKULL,2);
+        diceRolls.put(Roll.PARROT,0);
+        diceRolls.put(Roll.MONKEY,4);
+        int score = g.firstRollFixed(diceRolls);
+        assertEquals(600, score);
+        assertEquals(GameState.STANDARD, g.getGameState());
+    }
 }
