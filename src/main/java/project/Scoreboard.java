@@ -16,6 +16,9 @@ public class Scoreboard {
         if (fc == FortuneCard.GOLD_COIN){
             int rolled_coins = diceRolls.get(Roll.COIN);
             diceRolls.put(Roll.COIN, rolled_coins + 1);
+        }else if (fc == FortuneCard.DIAMOND){
+            int rolled_diamonds = diceRolls.get(Roll.DIAMOND);
+            diceRolls.put(Roll.DIAMOND, rolled_diamonds + 1);
         }
 
         turn_score += diceRolls.get(Roll.COIN) * 100;
@@ -41,6 +44,9 @@ public class Scoreboard {
                     turn_score += 4000;
                 }
             }
+        }
+        if (fc == FortuneCard.CAPTAIN){
+            turn_score = turn_score * 2;
         }
         return turn_score;
     }

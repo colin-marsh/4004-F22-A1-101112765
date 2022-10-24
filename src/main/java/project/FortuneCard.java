@@ -1,5 +1,7 @@
 package project;
 
 public enum FortuneCard {
-    GOLD_COIN
+    GOLD_COIN,
+    CAPTAIN,
+    DIAMOND
 }
