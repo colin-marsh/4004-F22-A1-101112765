@@ -22,6 +22,11 @@ public class Scoreboard {
         }else if (fc == FortuneCard.DIAMOND){
             int rolled_diamonds = diceRolls.get(Roll.DIAMOND);
             diceRolls.put(Roll.DIAMOND, rolled_diamonds + 1);
+        }else if (fc == FortuneCard.MONKEY_BUSINESS){
+            turn_score += diceRolls.get(Roll.COIN) * 100;
+            turn_score += diceRolls.get(Roll.DIAMOND)* 100;
+            turn_score += calculateMonkeyBusinessScore(diceRolls);
+            return turn_score;
         }
 
         turn_score += diceRolls.get(Roll.COIN) * 100;
@@ -33,19 +38,7 @@ public class Scoreboard {
                     return turn_score;
                 }
             }else{
-                if (diceRolls.get(roll) == 3){
-                    turn_score += 100;
-                }else if (diceRolls.get(roll) == 4){
-                    turn_score += 200;
-                }else if (diceRolls.get(roll) == 5){
-                    turn_score += 500;
-                }else if (diceRolls.get(roll) == 6){
-                    turn_score += 1000;
-                }else if (diceRolls.get(roll) == 7){
-                    turn_score += 2000;
-                }else if (diceRolls.get(roll) >= 8){
-                    turn_score += 4000;
-                }
+                turn_score += getIdenticalRollScore(diceRolls.get(roll));
             }
         }
         if (fc == FortuneCard.CAPTAIN){
@@ -53,6 +46,32 @@ public class Scoreboard {
         }
         return turn_score;
     }
+
+    private int getIdenticalRollScore(int num_rolls){
+        int roll_score = 0;
+        if (num_rolls == 3){
+            roll_score = 100;
+            return roll_score;
+        }else if (num_rolls == 4){
+            roll_score = 200;
+            return roll_score;
+        }else if (num_rolls == 5){
+            roll_score = 500;
+            return roll_score;
+        }else if (num_rolls == 6){
+            roll_score = 1000;
+            return roll_score;
+        }else if (num_rolls == 7){
+            roll_score = 2000;
+            return roll_score;
+        }else if (num_rolls >= 8){
+            roll_score = 4000;
+            return roll_score;
+        }else{
+            return 0;
+        }
+    }
+
 
     public boolean checkFullChest(HashMap<Roll,Integer> diceRolls){
 
@@ -83,6 +102,29 @@ public class Scoreboard {
             }
         }
     }
+
+    private int calculateMonkeyBusinessScore(HashMap<Roll,Integer> diceRolls){
+        int turn_score = 0;
+        for (Roll roll : diceRolls.keySet() ){
+            if (roll == Roll.SKULL){
+                if (diceRolls.get(roll) >=3){
+                    turn_score = 0;
+                    return turn_score;
+                }
+            }else{
+                if (roll != Roll.MONKEY && roll != Roll.PARROT){
+                    turn_score += getIdenticalRollScore(diceRolls.get(roll));
+                }else if(roll == Roll.MONKEY){
+
+                    int combined_roll = diceRolls.get(Roll.MONKEY) + diceRolls.get(Roll.PARROT);
+                    turn_score += getIdenticalRollScore(combined_roll);
+                }
+            }
+        }
+        return turn_score;
+    }
+
+
 
 
 
