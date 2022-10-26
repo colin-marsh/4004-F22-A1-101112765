@@ -4,5 +4,6 @@ public enum FortuneCard {
     GOLD_COIN,
     CAPTAIN,
     DIAMOND,
-    MONKEY_BUSINESS
+    MONKEY_BUSINESS,
+    SORCERESS
 }

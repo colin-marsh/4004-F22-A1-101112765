@@ -72,7 +72,6 @@ public class Scoreboard {
         }
     }
 
-
     public boolean checkFullChest(HashMap<Roll,Integer> diceRolls){
 
         for (Roll roll : diceRolls.keySet() ){
@@ -123,10 +122,6 @@ public class Scoreboard {
         }
         return turn_score;
     }
-
-
-
-
 
 
 }

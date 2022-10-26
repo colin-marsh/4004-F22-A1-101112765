@@ -12,6 +12,11 @@ public class Die {
         rand = new Random();
     }
 
+    public Die(Roll r){
+        roll = r;
+        rand = new Random();
+    }
+
     public void rollDie(){
         int rolled_num = rand.nextInt(5);
         if (rolled_num == 0){
@@ -46,5 +51,12 @@ public class Die {
 
     public Roll getRoll(){
         return roll;
+    }
+
+    public void setRoll(Roll r){
+        if (r == Roll.SKULL){
+            this.active = false;
+        }
+        this.roll = r;
     }
 }
