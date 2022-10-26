@@ -44,8 +44,6 @@ public class Game {
         return turn_score;
     }
 
-
-
     public int firstRollFixed(HashMap<Roll,Integer> rolls){
         diceRolls = rolls;
         int turn_score = evaluateFirstRoll();
@@ -67,7 +65,20 @@ public class Game {
         activeFC = fc;
     }
 
+    public void setDice(Die[] dice) {
+        this.dice = dice;
 
+    }
+
+    private int calculateDiceRolls(){
+        for(Die d: dice){
+            Roll roll = d.getRoll();
+            int current_rolls = diceRolls.get(roll);
+            diceRolls.put(roll, current_rolls +1);
+        }
+        int score = scoreboard.calculateDiceScore(diceRolls,activeFC);
+        return score;
+    }
 
 
 }
