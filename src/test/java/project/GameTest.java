@@ -500,4 +500,67 @@ public class GameTest extends TestCase {
         assertEquals(0, score);
     }
 
+    public void testSorceressRow77(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.SORCERESS);
+        Die d1 = new Die(Roll.DIAMOND);
+        Die d2 = new Die(Roll.DIAMOND);
+        Die d3 = new Die(Roll.SWORD);
+        Die d4 = new Die(Roll.MONKEY);
+        Die d5 = new Die(Roll.COIN);
+        Die d6 = new Die(Roll.PARROT);
+        Die d7 = new Die(Roll.PARROT);
+        Die d8 = new Die(Roll.PARROT);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        g.firstRollFixed(dice);
+        d6.setRoll(Roll.MONKEY);
+        d7.setRoll(Roll.MONKEY);
+        d8.setRoll(Roll.SKULL);
+        g.fixedSorceressReroll(d8, Roll.MONKEY);
+        int score = g.reRollFixed(dice);
+        assertEquals(500, score);
+    }
+
+    public void testSorceressRow78(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.SORCERESS);
+        Die d1 = new Die(Roll.SKULL);
+        Die d2 = new Die(Roll.SKULL);
+        Die d3 = new Die(Roll.SKULL);
+        Die d4 = new Die(Roll.SWORD);
+        Die d5 = new Die(Roll.SWORD);
+        Die d6 = new Die(Roll.PARROT);
+        Die d7 = new Die(Roll.PARROT);
+        Die d8 = new Die(Roll.PARROT);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        g.firstRollFixed(dice);
+        d4.setRoll(Roll.PARROT);
+        d5.setRoll(Roll.PARROT);
+        g.fixedSorceressReroll(d3, Roll.PARROT);
+        int score = g.reRollFixed(dice);
+        assertEquals(1000, score);
+    }
+
+    public void testSorceressRow79(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.SORCERESS);
+        Die d1 = new Die(Roll.SKULL);
+        Die d2 = new Die(Roll.MONKEY);
+        Die d3 = new Die(Roll.MONKEY);
+        Die d4 = new Die(Roll.MONKEY);
+        Die d5 = new Die(Roll.PARROT);
+        Die d6 = new Die(Roll.PARROT);
+        Die d7 = new Die(Roll.PARROT);
+        Die d8 = new Die(Roll.PARROT);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        g.firstRollFixed(dice);
+        d2.setRoll(Roll.SKULL);
+        d3.setRoll(Roll.PARROT);
+        d4.setRoll(Roll.PARROT);
+        g.reRollFixed(dice);
+        g.fixedSorceressReroll(d2, Roll.PARROT);
+        int score = g.reRollFixed(dice);
+        assertEquals(2000, score);
+    }
+
 }
