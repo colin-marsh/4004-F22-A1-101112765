@@ -1,5 +1,6 @@
 package project;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,11 +14,14 @@ public class Game {
 
     private Boolean sorceressActive;
 
+    private ArrayList<Die> goldChest;
+
     public Game(int players){
         scoreboard = new Scoreboard(players);
         gameState = GameState.STANDARD;
         sorceressActive = false;
         dice = new Die[8];
+        goldChest = new ArrayList<>();
         for(int i = 0 ; i < 8 ; i++){
             dice[i] = new Die();
         }
@@ -38,6 +42,10 @@ public class Game {
         if (sorceressActive == false){
             if(diceRolls.get(Roll.SKULL) == 3){
                 gameState = GameState.PLAYER_DEAD;
+                if(activeFC == FortuneCard.TREASURE_CHEST){
+                    int turn_score = calculateTreasureChestScore();
+                    return turn_score;
+                }
             }
         }
         if(diceRolls.get(Roll.SKULL) >= 4){
@@ -54,6 +62,10 @@ public class Game {
     private int evaluateReRoll(){
         if(diceRolls.get(Roll.SKULL)>=3){
             gameState = GameState.PLAYER_DEAD;
+            if(activeFC == FortuneCard.TREASURE_CHEST){
+                int turn_score = calculateTreasureChestScore();
+                return turn_score;
+            }
         }
         int turn_score = scoreboard.calculateDiceScore(diceRolls, activeFC);
         return turn_score;
@@ -64,7 +76,6 @@ public class Game {
         int turn_score = evaluateFirstRoll();
         return turn_score;
     }
-
 
     public int reRollFixed(HashMap<Roll,Integer> rolls){
         diceRolls = rolls;
@@ -111,12 +122,34 @@ public class Game {
         }
     }
 
+    public void placeInChest(Die d){
+        if(activeFC == FortuneCard.TREASURE_CHEST){
+            goldChest.add(d);
+        }
+    }
+
+    public void removeFromChest(Die d){
+        if(activeFC == FortuneCard.TREASURE_CHEST){
+            goldChest.remove(d);
+        }
+    }
+
     private void calculateDiceRolls(){
         for(Die d: dice){
             Roll roll = d.getRoll();
             int current_rolls = diceRolls.get(roll);
             diceRolls.put(roll, current_rolls +1);
         }
+    }
+
+    private int calculateTreasureChestScore(){
+        clearDiceRolls();
+        for (Die d: goldChest){
+            Roll roll = d.getRoll();
+            int current_rolls = diceRolls.get(roll);
+            diceRolls.put(roll, current_rolls +1);
+        }
+        return scoreboard.calculateDiceScore(diceRolls, activeFC);
     }
 
 

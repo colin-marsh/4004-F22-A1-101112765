@@ -73,15 +73,19 @@ public class Scoreboard {
     }
 
     public boolean checkFullChest(HashMap<Roll,Integer> diceRolls){
-
+        int dice_count = 0;
         for (Roll roll : diceRolls.keySet() ){
             int num_roll = diceRolls.get(roll);
+            dice_count += num_roll;
             if(num_roll >=1){
                 boolean is_scoring = checkRollScoring(roll, num_roll);
                 if(is_scoring == false){
                     return false;
                 }
             }
+        }
+        if(dice_count <8){
+            return false;
         }
         return true;
     }
