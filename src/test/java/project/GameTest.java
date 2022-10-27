@@ -563,4 +563,60 @@ public class GameTest extends TestCase {
         assertEquals(2000, score);
     }
 
+    public void testTreasureChestRow90(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.SORCERESS);
+        Die d1 = new Die(Roll.DIAMOND);
+        Die d2 = new Die(Roll.DIAMOND);
+        Die d3 = new Die(Roll.SWORD);
+        Die d4 = new Die(Roll.SWORD);
+        Die d5 = new Die(Roll.COIN);
+        Die d6 = new Die(Roll.PARROT);
+        Die d7 = new Die(Roll.PARROT);
+        Die d8 = new Die(Roll.PARROT);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        g.firstRollFixed(dice);
+        g.placeInChest(d1);
+        g.placeInChest(d2);
+        g.placeInChest(d5);
+        d3.setRoll(Roll.PARROT);
+        d4.setRoll(Roll.PARROT);
+        g.reRollFixed(dice);
+        g.removeFromChest(d1);
+        g.removeFromChest(d2);
+        g.removeFromChest(d5);
+        d1.setRoll(Roll.PARROT);
+        d2.setRoll(Roll.SKULL);
+        d5.setRoll(Roll.COIN);
+        int score = g.reRollFixed(dice);
+        assertEquals(1100, score);
+    }
+
+    public void testTreasureChestRow94(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.TREASURE_CHEST);
+        Die d1 = new Die(Roll.SKULL);
+        Die d2 = new Die(Roll.SKULL);
+        Die d3 = new Die(Roll.COIN);
+        Die d4 = new Die(Roll.COIN);
+        Die d5 = new Die(Roll.COIN);
+        Die d6 = new Die(Roll.PARROT);
+        Die d7 = new Die(Roll.PARROT);
+        Die d8 = new Die(Roll.PARROT);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        g.firstRollFixed(dice);
+        g.placeInChest(d3);
+        g.placeInChest(d4);
+        g.placeInChest(d5);
+        d6.setRoll(Roll.DIAMOND);
+        d7.setRoll(Roll.DIAMOND);
+        d8.setRoll(Roll.COIN);
+        g.placeInChest(d8);
+        d6.setRoll(Roll.SKULL);
+        d7.setRoll(Roll.COIN);
+        int score = g.reRollFixed(dice);
+        assertEquals(600, score);
+        assertEquals(GameState.PLAYER_DEAD, g.getGameState());
+    }
+
 }
