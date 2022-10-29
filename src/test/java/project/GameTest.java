@@ -619,4 +619,92 @@ public class GameTest extends TestCase {
         assertEquals(GameState.PLAYER_DEAD, g.getGameState());
     }
 
+    public void testFullChestRow97(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.GOLD_COIN);
+        Die d1 = new Die(Roll.MONKEY);
+        Die d2 = new Die(Roll.MONKEY);
+        Die d3 = new Die(Roll.MONKEY);
+        Die d4 = new Die(Roll.SWORD);
+        Die d5 = new Die(Roll.SWORD);
+        Die d6 = new Die(Roll.SWORD);
+        Die d7 = new Die(Roll.DIAMOND);
+        Die d8 = new Die(Roll.PARROT);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        int score = g.firstRollFixed(dice);
+        assertEquals(400, score);
+        assertEquals(GameState.STANDARD, g.getGameState());
+    }
+
+    public void testFullChestRow98(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.CAPTAIN);
+        Die d1 = new Die(Roll.MONKEY);
+        Die d2 = new Die(Roll.MONKEY);
+        Die d3 = new Die(Roll.MONKEY);
+        Die d4 = new Die(Roll.SWORD);
+        Die d5 = new Die(Roll.SWORD);
+        Die d6 = new Die(Roll.SWORD);
+        Die d7 = new Die(Roll.SWORD);
+        Die d8 = new Die(Roll.COIN);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        int score = g.firstRollFixed(dice);
+        assertEquals(1800, score);
+        assertEquals(GameState.STANDARD, g.getGameState());
+    }
+
+    public void testFullChestRow99(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.GOLD_COIN);
+        Die d1 = new Die(Roll.MONKEY);
+        Die d2 = new Die(Roll.MONKEY);
+        Die d3 = new Die(Roll.MONKEY);
+        Die d4 = new Die(Roll.SWORD);
+        Die d5 = new Die(Roll.SWORD);
+        Die d6 = new Die(Roll.SWORD);
+        Die d7 = new Die(Roll.SWORD);
+        Die d8 = new Die(Roll.COIN);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        int score = g.firstRollFixed(dice);
+        assertEquals(1000, score);
+        assertEquals(GameState.STANDARD, g.getGameState());
+    }
+
+    public void testFullChestRow102(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.TWO_SWORDS);
+        Die d1 = new Die(Roll.MONKEY);
+        Die d2 = new Die(Roll.MONKEY);
+        Die d3 = new Die(Roll.MONKEY);
+        Die d4 = new Die(Roll.MONKEY);
+        Die d5 = new Die(Roll.SWORD);
+        Die d6 = new Die(Roll.PARROT);
+        Die d7 = new Die(Roll.PARROT);
+        Die d8 = new Die(Roll.COIN);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        g.firstRollFixed(dice);
+        d6.setRoll(Roll.SWORD);
+        d7.setRoll(Roll.COIN);
+        int score = g.reRollFixed(dice);
+        assertEquals(1200, score);
+        assertEquals(GameState.STANDARD, g.getGameState());
+    }
+
+    public void testFullChestRow103(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.MONKEY_BUSINESS);
+        Die d1 = new Die(Roll.MONKEY);
+        Die d2 = new Die(Roll.MONKEY);
+        Die d3 = new Die(Roll.PARROT);
+        Die d4 = new Die(Roll.COIN);
+        Die d5 = new Die(Roll.COIN);
+        Die d6 = new Die(Roll.DIAMOND);
+        Die d7 = new Die(Roll.DIAMOND);
+        Die d8 = new Die(Roll.DIAMOND);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        int score = g.firstRollFixed(dice);
+        assertEquals(1200, score);
+        assertEquals(GameState.STANDARD, g.getGameState());
+    }
+
 }
