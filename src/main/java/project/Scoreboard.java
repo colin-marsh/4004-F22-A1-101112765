@@ -13,7 +13,11 @@ public class Scoreboard {
 
     public int calculateDiceScore(HashMap<Roll,Integer> diceRolls, FortuneCard fc){
         int turn_score = 0;
-        if (checkFullChest(diceRolls)){
+        boolean seabattle = false;
+        if (fc == FortuneCard.TWO_SWORDS || fc == FortuneCard.THREE_SWORDS || fc == FortuneCard.FOUR_SWORDS){
+            seabattle = true;
+        }
+        if (checkFullChest(diceRolls, fc)){
             turn_score += 500;
         }
         if (fc == FortuneCard.GOLD_COIN){
@@ -37,6 +41,8 @@ public class Scoreboard {
                     turn_score = 0;
                     return turn_score;
                 }
+            }else if(seabattle && roll == Roll.SWORD){
+                turn_score += scoreSeaBattle(diceRolls.get(roll), fc);
             }else{
                 turn_score += getIdenticalRollScore(diceRolls.get(roll));
             }
@@ -72,16 +78,29 @@ public class Scoreboard {
         }
     }
 
-    public boolean checkFullChest(HashMap<Roll,Integer> diceRolls){
+    public boolean checkFullChest(HashMap<Roll,Integer> diceRolls, FortuneCard fc){
         int dice_count = 0;
         for (Roll roll : diceRolls.keySet() ){
             int num_roll = diceRolls.get(roll);
             dice_count += num_roll;
             if(num_roll >=1){
-                boolean is_scoring = checkRollScoring(roll, num_roll);
-                if(is_scoring == false){
-                    return false;
+                if (roll == Roll.PARROT || roll == Roll.MONKEY){
+                    boolean is_scoring;
+                    if (fc == FortuneCard.MONKEY_BUSINESS){
+                         is_scoring = checkMonkeyBusinessScoring(diceRolls.get(Roll.MONKEY),diceRolls.get(Roll.PARROT));
+                    }else{
+                        is_scoring = checkRollScoring(roll, num_roll, fc);
+                    }
+                    if(is_scoring == false){
+                        return false;
+                    }
+                }else{
+                    boolean is_scoring = checkRollScoring(roll, num_roll, fc);
+                    if(is_scoring == false){
+                        return false;
+                    }
                 }
+
             }
         }
         if(dice_count <8){
@@ -90,20 +109,27 @@ public class Scoreboard {
         return true;
     }
 
-    public boolean checkRollScoring(Roll roll, int num){
+    public boolean checkRollScoring(Roll roll, int num, FortuneCard fc){
         if(roll == Roll.COIN){
             return true;
         } else if (roll == Roll.DIAMOND) {
             return true;
         }else if (roll == Roll.SKULL){
             return false;
-        }else{
-            if (num >= 3){
-                return true;
-            }else{
-                return false;
+        }else if (fc == FortuneCard.TWO_SWORDS || fc == FortuneCard.THREE_SWORDS || fc == FortuneCard.FOUR_SWORDS){
+            if (roll == Roll.SWORD){
+                if (scoreSeaBattle(num,fc )>0){
+                    return true;
+                }else{
+                    return false;
+                }
             }
         }
+        return num >= 3;
+    }
+
+    private boolean checkMonkeyBusinessScoring(int monkey_rolls,int parrots_rolls){
+        return monkey_rolls + parrots_rolls >= 3;
     }
 
     private int calculateMonkeyBusinessScore(HashMap<Roll,Integer> diceRolls){
@@ -125,6 +151,29 @@ public class Scoreboard {
             }
         }
         return turn_score;
+    }
+
+    private int scoreSeaBattle(int num_roll, FortuneCard fc){
+        if (fc == FortuneCard.TWO_SWORDS){
+            if (num_roll >= 2){
+                return 300;
+            }else{
+                return -300;
+            }
+        }else if (fc == FortuneCard.THREE_SWORDS){
+            if (num_roll >= 3){
+                return 500;
+            }else{
+                return -500;
+            }
+        }else{
+            if (num_roll >= 4){
+                return 1000;
+            }else{
+                return -1000;
+            }
+        }
+
     }
 
 

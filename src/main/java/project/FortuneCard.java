@@ -6,5 +6,8 @@ public enum FortuneCard {
     DIAMOND,
     MONKEY_BUSINESS,
     SORCERESS,
-    TREASURE_CHEST
+    TREASURE_CHEST,
+    TWO_SWORDS,
+    THREE_SWORDS,
+    FOUR_SWORDS
 }
