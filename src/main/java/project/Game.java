@@ -48,6 +48,7 @@ public class Game {
                 }
             }
         }
+
         if(diceRolls.get(Roll.SKULL) >= 4){
             gameState = GameState.SKULL_ISLAND;
         }
@@ -135,6 +136,13 @@ public class Game {
     }
 
     private void calculateDiceRolls(){
+        if (activeFC == FortuneCard.TWO_SKULLS){
+            int rolled_skulls = diceRolls.get(Roll.SKULL);
+            diceRolls.put(Roll.SKULL, rolled_skulls + 2);
+        }else if (activeFC == FortuneCard.ONE_SKULL){
+            int rolled_skulls = diceRolls.get(Roll.SKULL);
+            diceRolls.put(Roll.SKULL, rolled_skulls + 1);
+        }
         for(Die d: dice){
             Roll roll = d.getRoll();
             int current_rolls = diceRolls.get(roll);

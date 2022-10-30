@@ -9,5 +9,7 @@ public enum FortuneCard {
     TREASURE_CHEST,
     TWO_SWORDS,
     THREE_SWORDS,
-    FOUR_SWORDS
+    FOUR_SWORDS,
+    ONE_SKULL,
+    TWO_SKULLS
 }
