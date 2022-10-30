@@ -741,4 +741,76 @@ public class GameTest extends TestCase {
         assertEquals(GameState.PLAYER_DEAD, g.getGameState());
     }
 
+
+    public void testFC2SkullsRow109(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.TWO_SKULLS);
+        Die d1 = new Die(Roll.SKULL);
+        Die d2 = new Die(Roll.SKULL);
+        Die d3 = new Die(Roll.PARROT);
+        Die d4 = new Die(Roll.PARROT);
+        Die d5 = new Die(Roll.PARROT);
+        Die d6 = new Die(Roll.MONKEY);
+        Die d7 = new Die(Roll.MONKEY);
+        Die d8 = new Die(Roll.MONKEY);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        g.firstRollFixed(dice);
+        d3.setRoll(Roll.SKULL);
+        d4.setRoll(Roll.SKULL);
+        d5.setRoll(Roll.SWORD);
+        g.reRollFixed(dice);
+        d5.setRoll(Roll.SKULL);
+        d6.setRoll(Roll.SKULL);
+        d7.setRoll(Roll.SKULL);
+        d8.setRoll(Roll.SWORD);
+        int score = g.reRollFixed(dice);
+        assertEquals(-900, score);
+        assertEquals(GameState.SKULL_ISLAND, g.getGameState());
+    }
+
+    public void testSkullsIslandCaptainRow110(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.CAPTAIN);
+        Die d1 = new Die(Roll.SKULL);
+        Die d2 = new Die(Roll.SKULL);
+        Die d3 = new Die(Roll.SKULL);
+        Die d4 = new Die(Roll.SKULL);
+        Die d5 = new Die(Roll.SKULL);
+        Die d6 = new Die(Roll.MONKEY);
+        Die d7 = new Die(Roll.MONKEY);
+        Die d8 = new Die(Roll.MONKEY);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        g.firstRollFixed(dice);
+        d6.setRoll(Roll.SKULL);
+        d7.setRoll(Roll.SKULL);
+        d8.setRoll(Roll.COIN);
+        int score = g.reRollFixed(dice);
+        assertEquals(-1400, score);
+        assertEquals(GameState.SKULL_ISLAND, g.getGameState());
+    }
+
+    public void testSkullIsland2SkullsRow111(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.TWO_SKULLS);
+        Die d1 = new Die(Roll.SKULL);
+        Die d2 = new Die(Roll.SKULL);
+        Die d3 = new Die(Roll.SKULL);
+        Die d4 = new Die(Roll.SWORD);
+        Die d5 = new Die(Roll.SWORD);
+        Die d6 = new Die(Roll.SWORD);
+        Die d7 = new Die(Roll.SWORD);
+        Die d8 = new Die(Roll.SWORD);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        g.firstRollFixed(dice);
+        d4.setRoll(Roll.COIN);
+        d5.setRoll(Roll.COIN);
+        d6.setRoll(Roll.COIN);
+        d7.setRoll(Roll.COIN);
+        d8.setRoll(Roll.COIN);
+        int score = g.reRollFixed(dice);
+        assertEquals(-500, score);
+        assertEquals(GameState.SKULL_ISLAND, g.getGameState());
+    }
+
+
 }
