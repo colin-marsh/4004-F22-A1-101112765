@@ -707,4 +707,38 @@ public class GameTest extends TestCase {
         assertEquals(GameState.STANDARD, g.getGameState());
     }
 
+    public void testFC2SkullsRow106(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.TWO_SKULLS);
+        Die d1 = new Die(Roll.SKULL);
+        Die d2 = new Die(Roll.SWORD);
+        Die d3 = new Die(Roll.SWORD);
+        Die d4 = new Die(Roll.SWORD);
+        Die d5 = new Die(Roll.SWORD);
+        Die d6 = new Die(Roll.SWORD);
+        Die d7 = new Die(Roll.SWORD);
+        Die d8 = new Die(Roll.SWORD);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        int score = g.firstRollFixed(dice);
+        assertEquals(0, score);
+        assertEquals(GameState.PLAYER_DEAD, g.getGameState());
+    }
+
+    public void testFC2SkullsRow107(){
+        Game g = new Game(1);
+        g.applyFixedFortuneCard(FortuneCard.ONE_SKULL);
+        Die d1 = new Die(Roll.SKULL);
+        Die d2 = new Die(Roll.SKULL);
+        Die d3 = new Die(Roll.SWORD);
+        Die d4 = new Die(Roll.SWORD);
+        Die d5 = new Die(Roll.SWORD);
+        Die d6 = new Die(Roll.SWORD);
+        Die d7 = new Die(Roll.SWORD);
+        Die d8 = new Die(Roll.SWORD);
+        Die[] dice = {d1,d2,d3,d4,d5,d6,d7,d8};
+        int score = g.firstRollFixed(dice);
+        assertEquals(0, score);
+        assertEquals(GameState.PLAYER_DEAD, g.getGameState());
+    }
+
 }
