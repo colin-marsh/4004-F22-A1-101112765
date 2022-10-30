@@ -51,6 +51,7 @@ public class Game {
 
         if(diceRolls.get(Roll.SKULL) >= 4){
             gameState = GameState.SKULL_ISLAND;
+            int score = skullIsland();
         }
         for (Roll roll : diceRolls.keySet() ){
             if (diceRolls.get(roll) == 8){
@@ -61,6 +62,9 @@ public class Game {
         return turn_score;
     }
     private int evaluateReRoll(){
+        if (gameState == GameState.SKULL_ISLAND){
+            return skullIsland();
+        }
         if(diceRolls.get(Roll.SKULL)>=3){
             gameState = GameState.PLAYER_DEAD;
             if(activeFC == FortuneCard.TREASURE_CHEST){
@@ -107,10 +111,15 @@ public class Game {
     }
 
     public int reRollFixed(Die[] dice){
+        int score;
         this.dice = dice;
         clearDiceRolls();
         calculateDiceRolls();
-        int score = evaluateReRoll();
+        if (gameState == GameState.SKULL_ISLAND){
+            score = skullIsland();
+        }else {
+            score = evaluateReRoll();
+        }
         return score;
     }
 
@@ -136,6 +145,7 @@ public class Game {
     }
 
     private void calculateDiceRolls(){
+        clearDiceRolls();
         if (activeFC == FortuneCard.TWO_SKULLS){
             int rolled_skulls = diceRolls.get(Roll.SKULL);
             diceRolls.put(Roll.SKULL, rolled_skulls + 2);
@@ -159,6 +169,19 @@ public class Game {
         }
         return scoreboard.calculateDiceScore(diceRolls, activeFC);
     }
+
+
+
+    private int skullIsland(){
+        int skull_count = diceRolls.get(Roll.SKULL);
+        int deduction = skull_count * -100;
+        if(activeFC == FortuneCard.CAPTAIN){
+            deduction = deduction*2;
+        }
+        return deduction;
+    }
+
+
 
 
 }
